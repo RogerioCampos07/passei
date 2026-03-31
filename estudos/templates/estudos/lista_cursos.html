@@ -1,0 +1,20 @@
+{% extends 'estudos/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Seus Cursos</h2>
+<div class="row">
+    {% for curso in cursos %}
+    <div class="col-md-4 mb-3">
+        <div class="card card-corinthians shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ curso.nome }}</h5>
+                <p class="card-text text-muted">{{ curso.materias.count }} matérias vinculadas.</p>
+                <a href="{% url 'estudos:detalhe_curso' curso.pk %}" class="btn btn-dark">Ver Detalhes</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Nenhum curso cadastrado. Vá ao Admin e escale seu time!</p>
+    {% endfor %}
+</div>
+{% endblock %}

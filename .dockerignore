@@ -1,0 +1,40 @@
+# Python/Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.dist-info/
+*.egg-info/
+.eggs/
+.pytest_cache/
+htmlcov/
+coverage.xml
+*.cover
+*.log
+
+# Virtualenv
+venv/
+.env
+.env.*
+
+# Docker
+docker-compose.override.yml
+
+# Database
+db.sqlite3
+
+# IDE/editor
+.vscode/
+.idea/
+*.iml
+
+# System
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+build/

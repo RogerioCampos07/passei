@@ -1,0 +1,48 @@
+{% extends 'estudos/base.html' %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'estudos:lista_cursos' %}">Cursos</a></li>
+    <li class="breadcrumb-item active">{{ curso.nome }}</li>
+  </ol>
+</nav>
+
+<h1>{{ curso.nome }}</h1>
+<hr>
+
+{% for materia in curso.materias.all %}
+<div class="card mb-4 border-dark">
+    <div class="card-header bg-dark text-white d-flex justify-content-between">
+        <span>Matéria: <strong>{{ materia.nome }}</strong></span>
+        <span>Meta: {{ materia.meta_recompensa_horas }}h</span>
+    </div>
+    <div class="card-body">
+        <h6>Tópicos e Horas:</h6>
+        <ul class="list-group mb-3">
+            {% for topico in materia.topicos.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ topico.nome }}
+                <div>
+                    <span class="badge bg-secondary me-2">{{ topico.tempo_estudado }}</span>
+                    <form action="{% url 'estudos:registrar_estudo' topico.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <input type="number" name="minutos" placeholder="Min" style="width: 60px;" required>
+                        <button type="submit" class="btn btn-sm btn-success">+ Somar</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="alert {% if materia.tempo_total_materia.total_seconds >= 360000 %}recompensa-gold{% else %}alert-info{% endif %}">
+            Total na Matéria: <strong>{{ materia.tempo_total_materia }}</strong> 
+            {% if materia.tempo_total_materia.total_seconds >= 360000 %}
+                🏆 RECOMPENSA DESBLOQUEADA! VAI CORINTHIANS!
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
