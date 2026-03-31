@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
-from .models import Curso, Topico
+from .models import Curso, Topico, Materia
 from datetime import timedelta
 
 class CursoListView(ListView):
@@ -12,7 +12,15 @@ class CursoListView(ListView):
 class CursoDetailView(DetailView):
     model = Curso
     template_name = 'estudos/lista_cursos.html'
-    # O Django 5.2 já traz as matérias via o related_name que definimos!
+
+class MateriaDetailView(DetailView):
+    model = Materia
+    template_name = 'estudos/detalhe_materia.html'
+
+class TopicoDetailView(DetailView):
+    model = Topico
+    template_name = 'estudos/detalhe_topico.html'
+    
 
 class RegistrarEstudoView(View):
     """View para adicionar tempo a um tópico via POST"""
